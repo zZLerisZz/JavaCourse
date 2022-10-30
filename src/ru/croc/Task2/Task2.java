@@ -8,8 +8,8 @@ public class Task2 {
         return s;
     }
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        boolean fl = false;
+        Scanner in = new Scanner(System.in);//создание сканера
+        boolean fl = false;//флажок для проверки при вводе, может и не понадобиться
         double a = 0, d = 0;
         int n = 0;
         if(args.length == 3){ //если в программу введены аргументы, тогда просто их парсим
