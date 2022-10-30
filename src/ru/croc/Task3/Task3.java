@@ -7,7 +7,7 @@ public class Task3 {
 
     public static class Triangle{
         private Point a = new Point(), b = new Point(), c = new Point();//их можно было сделать открытыми, но дурацкая привычка...
-        public void InputPoints(double ax, double ay, double bx, double by, double cx, double cy){
+        public void InputPoints(double ax, double ay, double bx, double by, double cx, double cy){//метод ввода координат точек треугольник
             a.x = ax;
             a.y = ay;
             b.x = bx;
