@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.math.RoundingMode;
 
 public class Task3 {
     public static class Point{//класс для координат точек
@@ -29,7 +28,7 @@ public class Task3 {
         boolean fl = false;
         Scanner in = new Scanner(System.in);
         Triangle tr = new Triangle();
-        if(args.length == 6){
+        if(args.length == 6){//получаем координаты из аргументов или вводим их ручками
             double _ax = Double.parseDouble(args[0]);
             double _ay = Double.parseDouble(args[1]);
             double _bx = Double.parseDouble(args[2]);
@@ -102,7 +101,8 @@ public class Task3 {
             } while (!fl);
             tr.InputPoints(_ax, _ay, _bx, _by, _cx, _cy);
         }
-        System.out.println(tr.GetSq());
+        double sq = tr.GetSq();
+        System.out.printf("Площадь треугольника: %.1f", sq);
         in.close();
     }
 }
