@@ -88,40 +88,11 @@ public class Task5 {
     public static class Annotation{
         private Figure figure;
         private String sign;
-        private Annotation(Figure f, String _sign){
+        public Annotation(Figure f, String _sign){
             figure = f;
             sign = _sign;
         }
-        public static Annotation createAnn(int idF, String s, double...cords){
-            Figure tempF;
-            if(idF == 1){
-                if(cords.length != 4) {
-                    System.out.println("Координаты прямоугольника неверно введены.");
-                    return null;
-                }
-                if(cords[0] >= cords[2] ||cords[1] >= cords[3]){
-                    System.out.println("Координаты прямоугольника неверно введены.");
-                    return null;
-                }
-                tempF = new Rectangle(cords);
-            }
-            else if(idF == 2){
-                if(cords.length != 3) {
-                    System.out.println("Координаты круга неверно введены.");
-                    return null;
-                }
-                if(cords[2] <= 0){
-                    System.out.println("Координаты круга неверно введены.");
-                    return null;
-                }
-                tempF = new Circle(cords);
-            }
-            else{
-                System.out.println("Выбрана неверная фигура.");
-                return null;
-            }
-            return new Annotation(tempF, s);
-        }
+
         @Override
         public String toString(){
             return figure.toString() + sign;
@@ -212,7 +183,7 @@ public class Task5 {
                             System.out.print("Аннотация: ");
                             s.nextLine();
                             String st = s.nextLine();
-                            ArAn[top++] = Annotation.createAnn(id, st, RCords);
+                            ArAn[top++] = new Annotation(new Rectangle(RCords), st);
                         }
                         else{
                             CCords[0] = checkDouble("X центра");
@@ -221,7 +192,7 @@ public class Task5 {
                             System.out.print("Аннотация: ");
                             s.nextLine();
                             String st = s.nextLine();
-                            ArAn[top++] = Annotation.createAnn(id, st, CCords);
+                            ArAn[top++] = new Annotation(new Circle(CCords), st);
                         }
                     }
                 }break;
