@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Task5 {
     public static Scanner s = new Scanner(System.in);
-    static double CheckDouble(String str){
+    static double checkDouble(String str){
         double data = 0;
         boolean fl = false;
         do {
@@ -19,7 +19,7 @@ public class Task5 {
         }while(!fl);
         return data;
     }
-    static int CheckInt(String str){
+    static int checkInt(String str){
         int data = 0;
         boolean fl = false;
         do{
@@ -39,7 +39,7 @@ public class Task5 {
     }
     public abstract static class Figure implements Movable{
         protected double x, y;//стандартные корды
-        public abstract boolean PointIn(double _x, double _y);
+        public abstract boolean pointIn(double _x, double _y);
     }
 
     public static class Rectangle extends Figure{
@@ -52,7 +52,7 @@ public class Task5 {
         }
         @Override
         public String toString(){
-            return "Rectangle "+ x+","+y+"), "+"("+ x1+","+ y1+"): ";
+            return "Rectangle ("+ x+","+y+"), "+"("+ x1+","+ y1+"): ";
         }
         public void move(int dx, int dy){
             super.x += dx;
@@ -60,7 +60,7 @@ public class Task5 {
             this.x1 += dx;
             this.y1 += dy;
         }
-        public boolean PointIn(double _x, double _y){
+        public boolean pointIn(double _x, double _y){
             return(_x >= super.x && _x <= x1 && _y >= super.y && _y <= y1);
         }
     }
@@ -81,7 +81,7 @@ public class Task5 {
             super.x += dx;
             super.y += dy;
         }
-        public boolean PointIn(double x, double y) {
+        public boolean pointIn(double x, double y) {
             return (x - super.x) * (x - super.x) + (y - super.y) * (y - super.y) <= r * r;
         }
     }
@@ -127,12 +127,12 @@ public class Task5 {
             return figure.toString() + sign;
         }
 
-        public void Move(int _dx, int _dy){
+        public void move(int _dx, int _dy){
             figure.move(_dx, _dy);
         }
 
         public boolean findPoint(double x, double y) {
-            return figure.PointIn(x,y);
+            return figure.pointIn(x,y);
         }
 
         public String GetSign(){
@@ -183,7 +183,7 @@ public class Task5 {
         double[] RCords = new double[4];
         double[] CCords = new double[3];
         int colA, top = 0;
-        colA = CheckInt("Количество аннотаций");
+        colA = checkInt("Количество аннотаций");
         Annotation[] ArAn = new Annotation[colA];
         int menu = 0;
         do{
@@ -192,7 +192,7 @@ public class Task5 {
             System.out.println("3.Переместить фигуру");
             System.out.println("4.Перейти к тестированию дополнений");
             do {
-                menu = CheckInt("Ваш выбор");
+                menu = checkInt("Ваш выбор");
             }while(menu < 1 || menu > 4);
             switch (menu){
                 case 1:{
@@ -202,22 +202,22 @@ public class Task5 {
                         System.out.println("1 - прямоугольник, 2 - круг");
                         int id;
                         do {
-                            id = CheckInt("Ваш выбор");
+                            id = checkInt("Ваш выбор");
                         }while(id < 1 || id > 2);
                         if(id == 1){
-                            RCords[0] = CheckDouble("X левого угла");
-                            RCords[1] = CheckDouble("Y левого угла");
-                            RCords[2] = CheckDouble("X правого угла");
-                            RCords[3] = CheckDouble("Y правого угла");
+                            RCords[0] = checkDouble("X левого угла");
+                            RCords[1] = checkDouble("Y левого угла");
+                            RCords[2] = checkDouble("X правого угла");
+                            RCords[3] = checkDouble("Y правого угла");
                             System.out.print("Аннотация: ");
                             s.nextLine();
                             String st = s.nextLine();
                             ArAn[top++] = Annotation.createAnn(id, st, RCords);
                         }
                         else{
-                            CCords[0] = CheckDouble("X центра");
-                            CCords[1] = CheckDouble("Y центра");
-                            CCords[2] = CheckDouble("Радиус");
+                            CCords[0] = checkDouble("X центра");
+                            CCords[1] = checkDouble("Y центра");
+                            CCords[2] = checkDouble("Радиус");
                             System.out.print("Аннотация: ");
                             s.nextLine();
                             String st = s.nextLine();
@@ -229,7 +229,7 @@ public class Task5 {
                     if(top == 0)
                         System.out.println("Массив пуст.");
                     else{
-                        int ind = CheckInt("Индекс интересующего элемента");
+                        int ind = checkInt("Индекс интересующего элемента");
                         if(ind >= top){
                             System.out.println("Индекс выходит за заполненный массив.");
                         }
@@ -241,14 +241,14 @@ public class Task5 {
                     if(top == 0)
                         System.out.println("Массив пуст.");
                     else{
-                        int ind = CheckInt("Индекс интересующего элемента");
+                        int ind = checkInt("Индекс интересующего элемента");
                         if(ind >= top){
                             System.out.println("Индекс выходит за заполненный массив.");
                         }
                         else{
-                            int vx = CheckInt("Скорость по оси X");
-                            int vy = CheckInt("Скорость по оси Y");
-                            ArAn[ind].Move(vx, vy);
+                            int vx = checkInt("Скорость по оси X");
+                            int vy = checkInt("Скорость по оси Y");
+                            ArAn[ind].move(vx, vy);
                         }
                     }
                 }break;
@@ -266,12 +266,12 @@ public class Task5 {
                 System.out.println("2.Найти фигуру по аннотации.");
                 System.out.println("3.Выход");
                 do {
-                    menu = CheckInt("Ваш выбор");
+                    menu = checkInt("Ваш выбор");
                 }while(menu < 1 || menu > 3);
                 switch (menu){
                     case 1:{
-                        int xp = CheckInt("Координата X точки");
-                        int yp = CheckInt("Координата Y точки");
+                        int xp = checkInt("Координата X точки");
+                        int yp = checkInt("Координата Y точки");
                         Annotation tAn = animg.findByPoint(xp, yp);
                         if(tAn == null)
                             System.out.println("Нет подходящей фигуры.");
