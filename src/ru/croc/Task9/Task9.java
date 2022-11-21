@@ -1,4 +1,4 @@
-//package ru.croc.Task9;
+package ru.croc.Task9;
 //ответ - passwrd
 
 import java.security.MessageDigest;
