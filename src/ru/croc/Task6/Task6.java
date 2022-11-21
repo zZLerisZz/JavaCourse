@@ -13,7 +13,7 @@ public class Task6 {
         String str = "";
         while(sc.hasNextLine())
            str += sc.nextLine() + '\n';
-        
+
         sc.close();
         fr.close();
         return deleteComments(str);
@@ -21,31 +21,27 @@ public class Task6 {
 
     public static String deleteComments(String source){
         String[] temp = source.split("\n");
-        Boolean fl = false;
         for(int i = 0; i < temp.length; i++){
-            if(fl) {
-                int endInd = temp[i].indexOf("*/");
-                if(endInd != -1){
-                    temp[i] = temp[i].substring(temp[i].indexOf("*/") + 2, temp[i].length());
-                    fl = false;
-                }
-                else
-                    temp[i] = "";
-            }
-            else if(temp[i].contains("//")) {
+            if(temp[i].contains("//")) {
                 temp[i] = temp[i].substring(0, temp[i].indexOf("//"));
             }
             else if(temp[i].contains("/*")){
                 int endInd = temp[i].indexOf("*/");
                 if(endInd != -1)
                     temp[i] = temp[i].substring(0, temp[i].indexOf("/*")) + temp[i].substring(temp[i].indexOf("*/") + 2, temp[i].length());
-                else{
+                else {
                     temp[i] = temp[i].substring(0, temp[i].indexOf("/*"));
-                    fl = true;
+                    do {
+                        i++;
+                        endInd = temp[i].indexOf("*/");
+                        if(endInd == -1)
+                            temp[i] = "";
+                    } while (endInd == -1 && i < temp.length);
+                    temp[i] = temp[i].substring(temp[i].indexOf("*/") + 2, temp[i].length());
                 }
             }
         }
-        String result = String.join("\n", temp);
+        String result = String.join("\n",temp);
         return result;
     }
 
