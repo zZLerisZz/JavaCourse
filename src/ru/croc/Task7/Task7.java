@@ -24,58 +24,8 @@ public class Task7 {
         return data;
     }
     public static int top = 0;
-    public static class IllegalPositionException extends Exception {
-        public IllegalPositionException(String message)
-        {
-            super(message);
-        }
-    }
-    public static class IllegalMoveException extends Exception {
-        public IllegalMoveException(Chess prevPos,Chess curPos)
-        {
-            super("Конь так не ходит: " + prevPos + " -> "+ curPos);
-        }
-    }
-    public static class Chess extends Exception{
-        private int x,y;
 
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public static Chess createChess(String pos) throws IllegalPositionException {
-            if (pos.length() < 2) {
-                throw new IllegalPositionException("Создана невозможная позиция: " + pos);
-            }
-            int x = pos.charAt(0) - 'a';
-            int y = pos.charAt(1) - '0' - 1;
-            if (x < 0 || y < 0 || x > 7 || y > 7) {
-                IllegalPositionException e = new IllegalPositionException("Создана невозможная позиция: " + pos);
-                System.out.println(e.getMessage());
-                return null;
-
-            }
-            return new Chess(x,y);
-        }
-
-        private Chess(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-        @Override
-        public String toString()
-        {
-            char x = (char)('a' + this.x);
-            String pos = "" + x + (1 + this.y);
-            return pos;
-        }
-    }
-    public static boolean checkKnight(Chess[] arr) throws IllegalMoveException
+    public static boolean checkKnight(Chess[] arr) throws ChessExceptions.IllegalMoveException
     {
         if(top <= 1) {
             System.out.println("Недостаточно заполненных полей.");
@@ -86,7 +36,7 @@ public class Task7 {
         {
             if(!((abs(arr[i].getY() - prevPos.getY()) == 2 && abs(arr[i].getX() - prevPos.getX()) == 1) ||
                     (abs(arr[i].getX() - prevPos.getX()) == 2 && abs(arr[i].getY() - prevPos.getY()) == 1))) {
-                throw new IllegalMoveException(prevPos, arr[i]);
+                throw new ChessExceptions.IllegalMoveException(prevPos, arr[i]);
             }
             prevPos = arr[i];
         }
@@ -101,6 +51,7 @@ public class Task7 {
         for(int i = 0; i < top; i++)
             System.out.println(arr[i]);
     }
+
     public static void main(String[] args){
         Chess[] arrCh = new Chess[64];
         String pos = "";
@@ -110,7 +61,7 @@ public class Task7 {
             {
                 try {
                     arrCh[top++] = Chess.createChess(args[i]);
-                } catch (IllegalPositionException e) {
+                } catch (ChessExceptions.IllegalPositionException e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -131,7 +82,7 @@ public class Task7 {
                         if (!((arrCh[top] = Chess.createChess(sc.nextLine())) == null)) {
                             top++;
                         }
-                    } catch (IllegalPositionException e) {
+                    } catch (ChessExceptions.IllegalPositionException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -140,7 +91,7 @@ public class Task7 {
                     try {
                         if(checkKnight(arrCh))
                             System.out.println("OK");
-                    } catch (IllegalMoveException e) {
+                    } catch (ChessExceptions.IllegalMoveException e) {
                         System.out.println(e.getMessage());
                     }
                 }break;
