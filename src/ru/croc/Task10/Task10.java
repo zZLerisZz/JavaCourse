@@ -79,6 +79,9 @@ public class Task10 {
                     for (int i = 0; i < cb; i++)
                         trs[i].run();
                 System.out.println("КОНЕЦ ТОРГОВ");
+                System.out.println("Победитель - " + Product.getWinner());
+                for (int i = 0; i < cb; i++)
+                    trs[i].interrupt();
             }
         }while (menu != 2);
     }
