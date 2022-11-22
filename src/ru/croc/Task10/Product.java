@@ -3,7 +3,7 @@ package ru.croc.Task10;
 import java.util.Calendar;
 
 public class Product implements Runnable{
-    private String pname, wname;
+    private static String pname, wname;
     private double cprice;
     private Calendar ts, te;
 
@@ -23,6 +23,10 @@ public class Product implements Runnable{
     public boolean stillGoing(){
         return Calendar.getInstance().getTimeInMillis() >= ts.getTimeInMillis()
                 && Calendar.getInstance().getTimeInMillis() <= te.getTimeInMillis();
+    }
+
+    public static String getWinner(){
+        return wname;
     }
 
     public void run(){
@@ -49,8 +53,6 @@ public class Product implements Runnable{
                     menu = 2;
                 }
             }
-            if(!stillGoing())
-                System.out.println("Лот продан по цене - " + cprice + ", победитель - " + wname);
         }
     }
 }
