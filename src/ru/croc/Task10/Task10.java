@@ -75,11 +75,10 @@ public class Task10 {
                     trs[i].start();
                 }
                 System.out.println("ТОРГИ НАЧАЛИСЬ");
-                while (pr.stillGoing())
-                    for (int i = 0; i < cb; i++)
-                        trs[i].run();
+                for (int i = 0; i < cb; i++)
+                    trs[i].join();
                 System.out.println("КОНЕЦ ТОРГОВ");
-                System.out.println("Победитель - " + Product.getWinner());
+                System.out.println("Победитель - " + pr.getWinner());
                 for (int i = 0; i < cb; i++)
                     trs[i].interrupt();
             }
