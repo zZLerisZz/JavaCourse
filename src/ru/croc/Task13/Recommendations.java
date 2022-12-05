@@ -4,8 +4,8 @@ import java.io.FileReader;
 import java.util.*;
 
 public class Recommendations {
-    private List<String> films = new ArrayList<>();
-    private Set<String> history = new HashSet<>();
+    private List<String> films;
+    private Set<String> history;
     public Recommendations(){
         films = new ArrayList<>();
         history = new HashSet<>();
