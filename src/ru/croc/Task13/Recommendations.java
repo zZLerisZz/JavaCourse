@@ -4,8 +4,8 @@ import java.io.FileReader;
 import java.util.*;
 
 public class Recommendations {
-    private List<String> films;
-    private Set<String> history;
+    private List<String> films = new ArrayList<>();
+    private Set<String> history = new HashSet<>();
     public Recommendations(){
         films = new ArrayList<>();
         history = new HashSet<>();
@@ -36,10 +36,15 @@ public class Recommendations {
     public void getRecommendation(String userhistory){
         int[] cw = new int[films.size()];
         int[] marks = new int[films.size()];
-        String[] nums = userhistory.split(",");
+        List<String> nums = new ArrayList<>(Arrays.stream(userhistory.split(",")).toList());
+        int cof = 0;
+        if(nums.size() % 2 == 0)
+            cof = nums.size() / 2;
+        else
+            cof = nums.size() / 2 + 1;
         int ccount, rindex = 0, rcount = 0;
         for (var item:history){
-            String[] fs = item.split(",");
+            List<String> fs =new ArrayList<>( Arrays.stream(item.split(",")).toList());
             for (var it:fs)
                 cw[Integer.parseInt(it) - 1] += 1;
             ccount = 0;
@@ -49,11 +54,6 @@ public class Recommendations {
                     ccount += 1;
                 }
             }
-            int cof = 0;
-            if(fs.length % 2 == 0)
-                cof = fs.length / 2;
-            else
-                cof = fs.length / 2 + 1;
             if(ccount >= cof){
                 for (var itr:fs){
                     if(!userhistory.contains(itr))
