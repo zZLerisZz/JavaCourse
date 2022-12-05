@@ -2,13 +2,13 @@ package ru.croc.Task12;
 
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
-public class Comments implements BlackListFilter{
-    public void fillComments(List<String> comments, String filepath) throws Exception{
+public class Comments{
+    private List<String> comments = new ArrayList<>();
+    private Set<String> badwords = new HashSet<>();
+    private Filter filt = new Filter();
+    public void fillComments(String filepath) throws Exception{
         Scanner sc = null;
         FileReader fl = null;
         fl = new FileReader(filepath);
@@ -18,7 +18,7 @@ public class Comments implements BlackListFilter{
         sc.close();
         fl.close();
     }
-    public void fillVlackList(Set<String> badwords, String filepath) throws Exception{
+    public void fillBlackList(String filepath) throws Exception{
         Scanner scan = null;
         FileReader fl = null;
         fl = new FileReader(filepath);
@@ -28,7 +28,7 @@ public class Comments implements BlackListFilter{
         scan.close();
         fl.close();
     }
-    public void writeResults(List<String> comments, String filepath) throws Exception{
+    public void writeResults(String filepath) throws Exception{
         FileOutputStream fo = new FileOutputStream(filepath);
         for(var it:comments) {
             String str = it + '\n';
@@ -37,15 +37,8 @@ public class Comments implements BlackListFilter{
         fo.flush();
         fo.close();
     }
-    @Override
-    public void filterComments(List<String> comments, Set<String> blackList) {
-        List<String> badcomments = new ArrayList<>();
-        for(var item:comments){
-            for(var it:blackList){
-                if(item.contains(it))
-                    badcomments.add(item);
-            }
-        }
-        comments.removeAll(badcomments);
+
+    public void filter(){
+        filt.filterComments(comments, badwords);
     }
 }
