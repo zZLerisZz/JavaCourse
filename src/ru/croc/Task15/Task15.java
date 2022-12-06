@@ -11,7 +11,7 @@ public class Task15 {
         List<Human> hm = new ArrayList<>();
         for(var it : args){
             gr.add(new Group(temp, Integer.parseInt(it)));
-            temp = Integer.parseInt(it);
+            temp = Integer.parseInt(it) + 1;
         }
         gr.add(new Group(temp, Group.MAX_AGE));
         System.out.println("Группы успешно созданы - введите опрошенных.");
