@@ -10,7 +10,7 @@ public class Filter implements BlackListFilter{
         List<String> badcomments = new ArrayList<>();
         for(var item:comments){
             for(var it:blackList){
-                if(item.contains(it))
+                if(item.toLowerCase().contains(it.toLowerCase()))
                     badcomments.add(item);
             }
         }
