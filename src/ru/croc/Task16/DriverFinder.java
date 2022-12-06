@@ -2,6 +2,7 @@ package ru.croc.Task16;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,11 +22,9 @@ public class DriverFinder {
         String[] nstr = str.toArray(new String[str.size()]);
         for(int i = 0; i < str.size(); i++){
             String[] cstr = nstr[i].split(";");
-            List<String> fac = new ArrayList<>();
-            for(int j = 6; j < cstr.length; j++)
-                fac.add(cstr[j]);
             drivers.add(new Driver(cstr[0], Double.parseDouble(cstr[1]), Double.parseDouble(cstr[2]),
-                    new Car(Integer.parseInt(cstr[3]), cstr[4], cstr[5], fac)));
+                    new Car(Integer.parseInt(cstr[3]), cstr[4], cstr[5],
+                            new ArrayList<>(Arrays.asList(Arrays.copyOfRange(cstr, 6, cstr.length))))));
         }
         drivers.sort(Driver.driverComparator);
         scan.close();
