@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
-    private int bline;
-    private int uline;
+    private int botLine;
+    private int upLine;
     public static final int MAX_AGE = 123;
     List<Human> resp;
-    public Group(int _bline, int _uline){
+    public Group(int parbline, int paruline){
         resp = new ArrayList<>();
-        bline = _bline;
-        uline = _uline;
+        botLine = parbline;
+        upLine = paruline;
     }
     public void fillResp(List<Human> data){
         for(var it : data){
-            if(it.getAge() <= uline && it.getAge() >= bline)
+            if(it.getAge() <= upLine && it.getAge() >= botLine)
                 resp.add(it);
         }
         resp.sort(Human::compareTo);
@@ -24,10 +24,10 @@ public class Group {
     public String toString(){
         if(!resp.isEmpty()){
             String msg;
-            if(uline == MAX_AGE)
-                msg = bline + "+: ";
+            if(upLine == MAX_AGE)
+                msg = botLine + "+: ";
             else
-                msg = bline + "-" + uline + ": ";
+                msg = botLine + "-" + upLine + ": ";
             for(var it : resp){
                 msg += it.toString() + ", ";
             }
