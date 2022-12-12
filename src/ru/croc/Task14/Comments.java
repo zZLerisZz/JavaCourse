@@ -7,25 +7,11 @@ import java.util.function.Predicate;
 
 public class Comments{
     private List<String> comments;
-    private List<String> censcomments;
-    Set<String> badwords;
-    Predicate<String> censor = new Predicate<String>() {
-        @Override
-        public boolean test(String comment) {//функция тест должна меняться в зависимости от объекта
-            for(var badword : badwords)
-            {
-                if(comment.toLowerCase().contains(badword)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    };
-    private Filter filt = new Filter();
+    private List<String> censoredComments;
+    private Filter<String> filt = new Filter<String>();
 
     public Comments(){
         comments = new ArrayList<>();
-        badwords = new HashSet<>();
     }
     public void fillComments(String filepath) throws Exception{
         Scanner sc = null;
@@ -37,27 +23,32 @@ public class Comments{
         sc.close();
         fl.close();
     }
-    public void fillBlackList(String filepath) throws Exception{
-        Scanner scan = null;
-        FileReader fl = null;
-        fl = new FileReader(filepath);
-        scan = new Scanner(fl);
-        while(scan.hasNextLine())
-            badwords.add(scan.nextLine());
-        scan.close();
-        fl.close();
+    public void fillFilter(String filepath) throws Exception {
+        filt.fillBlackList(filepath);
     }
     public void writeResults(String filepath) throws Exception{
         FileOutputStream fo = new FileOutputStream(filepath);
-        for(var it:censcomments) {
+        for(var it:censoredComments) {
             String str = it + '\n';
             fo.write(str.getBytes());
         }
         fo.flush();
         fo.close();
     }
+    Predicate<String> censor = new Predicate<String>() {
+        Set<String> badWords = filt.getBadWords();
+        @Override
+        public boolean test(String comment) {//функция тест должна меняться в зависимости от объекта
+            for(var badWord : badWords) {
+                if(comment.toLowerCase().contains(badWord.toLowerCase())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
 
-    public void filter(){
-        censcomments = filt.filterComments(comments, censor);
+    public void createCensoredComments(){
+        censoredComments = filt.censorComments(comments, censor);
     }
 }
