@@ -1,28 +1,29 @@
 package ru.croc.Task15;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Task15 {
     public static void main(String[] args) {
         int temp = 0;
-        List<Group> gr = new ArrayList<>();
-        List<Human> hm = new ArrayList<>();
+        List<Group> groups = new ArrayList<>();
+        List<Human> humans = new ArrayList<>();
         for(var it : args){
-            gr.add(new Group(temp, Integer.parseInt(it)));
+            groups.add(new Group(temp, Integer.parseInt(it)));
             temp = Integer.parseInt(it) + 1;
         }
-        gr.add(new Group(temp, Group.MAX_AGE));
+        groups.add(new Group(temp, Group.MAX_AGE));
+        Collections.reverse(groups);
         System.out.println("Группы успешно созданы - введите опрошенных.");
         Scanner sc = new Scanner(System.in);
         String str;
         while(!(str = sc.nextLine()).equals("END"))
-            hm.add(new Human(str));
-        for (var it : gr) {
-            it.fillResp(hm);
+            humans.add(new Human(str));
+        for (var it : groups) {
+            it.fillResp(humans);
             System.out.print(it);
         }
-        sc.close();
     }
 }
