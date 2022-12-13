@@ -90,7 +90,4 @@ public class DataBaseDAO {
         }
         return null;
     }
-    public void destroyConnection() throws SQLException {
-        conn.close();
-    }
 }
