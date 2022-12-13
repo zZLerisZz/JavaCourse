@@ -23,6 +23,5 @@ public class Task18 {
         products.add(new Product("Т9","труп мухи",1000));
         products.add(test);
         dao.createOrder("Leris",products);
-        dao.destroyConnection();
     }
 }
