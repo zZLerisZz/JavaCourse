@@ -4,10 +4,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Driver {
-    private String name;
-    private double xcord;
-    private double ycord;
-    private Car c;
+    private final String name;
+    private final double xcord;
+    private final double ycord;
+    private final Car c;
     public Driver(String _name, double x, double y, Car _c){
         this.name = _name;
         this.xcord = x;
