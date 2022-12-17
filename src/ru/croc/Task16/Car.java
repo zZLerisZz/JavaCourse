@@ -3,10 +3,10 @@ package ru.croc.Task16;
 import java.util.List;
 
 public class Car {
-    private int num;
-    private String model;
-    private String type;
-    private List<String> facilities;
+    private final int num;
+    private final String model;
+    private final String type;
+    private final List<String> facilities;
     public Car(int _num, String _model, String _type, List<String> _fac){
         this.num = _num;
         this.model = _model;
