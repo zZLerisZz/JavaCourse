@@ -7,14 +7,12 @@ package ru.croc.Task16;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class Task16 {
     private static final boolean TEST = false;
     //Если TEST false, то идет считывания водителей из файла, имитирую работу с БД,
     // true - водители создаются известными значениями для теста
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
         DriverFinder df = new DriverFinder();
         DriversBase driversBase;
         Client client;
