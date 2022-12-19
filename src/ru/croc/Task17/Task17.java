@@ -11,7 +11,8 @@ public class Task17 {
         BufferedReader r = new BufferedReader(new FileReader(args[0]));
         List<String> dataToParse = r.lines().toList();
         OrderDataBase orderDataBase = new OrderDataBase(dataToParse);
+        ItemDataBase itemDataBase = new ItemDataBase(dataToParse);
         DataBaseWriter wr = new DataBaseWriter("jdbc:h2:/DataBase/shopDataBaseRegenerateFff", "sa", "");
-        wr.fillDataBase(orderDataBase);
+        wr.fillDataBase(orderDataBase, itemDataBase);
     }
 }
