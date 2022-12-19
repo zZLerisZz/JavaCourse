@@ -7,7 +7,7 @@ public class DataBaseWriter {
     public DataBaseWriter(String url, String username, String password) throws SQLException {
         conn = DriverManager.getConnection(url, username, password);
     }
-    public void fillDataBase(OrderDataBase baseToWrite) throws SQLException {
+    public void fillDataBase(OrderDataBase orderBaseToWrite, ItemDataBase itemBaseToWrite) throws SQLException {
         Statement statement = conn.createStatement();
         statement.execute("create table if not exists items(vendorCode varchar primary key, " +
                     "item_name varchar not null, price int not null)");
@@ -15,25 +15,19 @@ public class DataBaseWriter {
                     "vendor_Codes varchar not null, buyer varchar not null)");
         statement.execute("delete from items");
         statement.execute("delete from orders");
-        for(var it:baseToWrite.getOrderList()){
+        ordersDataBaseWrite(orderBaseToWrite, statement);
+        itemsDataBaseWrite(itemBaseToWrite, statement);
+    }
+
+    private void ordersDataBaseWrite(OrderDataBase orderBaseToWrite, Statement statement) throws SQLException {
+        for(var it:orderBaseToWrite.getOrderList()){
             statement.execute("INSERT INTO orders VALUES" + "(" + it.getNumberOfOrder() + ", '"
-                        + it.getVendorCodes() + "', '" + it.getUserName() + "')");
-            for(var item : it.getItemList())
-                if(isUnique(conn, item.getVendorCode())){
-                    statement.execute("INSERT INTO items VALUES" + "('" + item.getVendorCode() + "', '" +
-                        item.getItemName() + "', " + item.getPrice() + ")");
-                }
+                    + it.getVendorCodes() + "', '" + it.getUserName() + "')");
         }
     }
-    private boolean isUnique(Connection c, String vcode) throws SQLException {
-        String select = "SELECT * FROM items WHERE vendorCode = '" + vcode + "'";
-        Statement statement = c.createStatement();
-        ResultSet result = statement.executeQuery(select);
-        if (result.next()) {
-            return false;
-        }
-        else {
-            return true;
-        }
+    private void itemsDataBaseWrite(ItemDataBase itemDataBase, Statement statement) throws SQLException {
+        for(var it : itemDataBase.getItemList())
+            statement.execute("INSERT INTO items VALUES" + "('" + it.getVendorCode() + "', '" +
+                    it.getItemName() + "', " + it.getPrice() + ")");
     }
 }
